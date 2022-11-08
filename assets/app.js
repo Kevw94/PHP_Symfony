@@ -12,4 +12,4 @@ import './styles/global.scss';
 // start the Stimulus application
 import './bootstrap';
 
-import './scripts/materialize-init';
+import './scripts/materialize-int';

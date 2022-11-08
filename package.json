@@ -20,6 +20,8 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "materialize-css": "^1.0.0"
+        "materialize-css": "^1.0.0",
+        "sass": "^1.56.0",
+        "sass-loader": "^13.1.0"
     }
 }
