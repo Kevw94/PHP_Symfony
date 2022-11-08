@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+<<<<<<< HEAD
 use Doctrine\Persistence\ManagerRegistry;
 
 class CompanyController extends AbstractController 
@@ -29,3 +30,16 @@ class CompanyController extends AbstractController
     return new Response('Successfully created new company');
  }
 }
+=======
+
+class CompanyController extends AbstractController
+{
+    #[Route('/company', name: 'app_company')]
+    public function index(): Response
+    {
+        return $this->render('company/index.html.twig', [
+            'controller_name' => 'CompanyController',
+        ]);
+    }
+}
+>>>>>>> main
