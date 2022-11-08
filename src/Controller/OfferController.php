@@ -9,12 +9,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\OfferRepository;
+use App\Service\OfferService;
+use Doctrine\Persistence\ManagerRegistry;
+
 
 class OfferController extends AbstractController
 {
     #[Route('/offer', name: 'app_offer')]
-    public function index(): Response
+    public function index(OfferService $myService, ManagerRegistry $doctrine): Response
     {
+		$message = $myService->TryFindAllOffers($doctrine);
+		var_dump($message);
         return $this->render('offer/index.html.twig', [
             'controller_name' => 'OfferController',
         ]);
