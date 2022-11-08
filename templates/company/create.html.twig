@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création de compagnie{% endblock %}
+
+{% block body %}
+<div>
+    <form method="post">
+        <h1>
+            Créer une entreprise
+        </h1>
+        <div>
+            <div>
+                <input type="text" name="name" placeholder="insérer un nom de compagnie">
+            </div>
+            <div>
+                <input type="text" name="email" placeholder="insérer un mail">
+            </div>
+            <input type="submit" value="Créer Entreprise">
+        </div>
+    </form>
+</div>
+{% endblock %}
