@@ -37,40 +37,49 @@ class CompanyController extends AbstractController
         $company = new Company();
 
         $form = $this->createFormBuilder($company)
-            ->add('name', TextType::class, ['label' => "Nom de l'entreprise"])
-            ->add('email', TextType::class, ['label' => "Mail de l'entreprise"])
-            ->add('save', SubmitType::class, ['label' => 'Créer une entreprise'])
+
+            ->add('name',TextType::class, ['label' => "Nom de l'entreprise"])
+            ->add('email',TextType::class, ['label' => "Mail de l'entreprise"])
+            ->add('save',SubmitType::class, ['label' => 'Créer une entreprise'])
             ->getForm();
 
 
-        $form->handleRequest($request);
+            $form -> handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $company = $form->getData();
+                $compRepo->save($company, true);
+                return $this->redirectToRoute('app_company');
+            }
+
+        
+        return $this->renderForm('company/create.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route(
+        '/company/edit/{id}',
+        name: 'company_edit',
+    )]
+    public function editCompany(CompanyRepository $compRepo, Request $request, int $id):Response
+    {   
+        $company = $compRepo->find($id);
+
+        $form = $this->createFormBuilder($company)
+        ->add('name',TextType::class, ['label' => "Nom de l'entreprise"])
+        ->add('email',TextType::class, ['label' => "Mail de l'entreprise"])
+        ->add('save',SubmitType::class, ['label' => 'Modifier entreprise'])
+        ->getForm();
+
+        $form -> handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $company = $form->getData();
             $compRepo->save($company, true);
             return $this->redirectToRoute('app_company');
         }
 
-
-        return $this->renderForm('company/create.html.twig', [
+        return $this->renderForm('company/edit.html.twig', [
             'form' => $form,
         ]);
     }
-
-
 }
-//  {
-//     // string $name, string $email
-//     $entityManager = $doctrine->getManager();
-
-//     $company = new Company();
-
-//     $company->setName('gulag');
-//     $company->setMail('gulag@gmail.com');
-
-//     $entityManager->persist($company);
-
-//     $entityManager->flush();
-
-//     return new Response('Successfully created new company');
-//  }
-// }

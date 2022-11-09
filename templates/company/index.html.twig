@@ -13,6 +13,10 @@
         <div>
             {{company.email}}
         </div>
+        <div>
+            
+            <a href="{{ path('company_edit', {'id' : company.id}) }}">Modifier</a>
+        </div>
         <br>
     {% endfor %}
 </div>

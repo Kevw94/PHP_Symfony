@@ -54,13 +54,13 @@ class CompanyRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Company
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   public function findOneById($value): ?Company
+   {
+       return $this->createQueryBuilder('c')
+           ->andWhere('c.id =' + $value)
+           ->setParameter('id', $value)
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+   }
 }
