@@ -12,12 +12,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Repository\CompanyRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class CompanyController extends AbstractController 
+class CompanyController extends AbstractController
 {
-
-
     #[Route(
-        '/company', 
+        '/company',
         name: 'app_company'
     )]
     public function index(CompanyRepository $compRepo): Response
@@ -34,11 +32,12 @@ class CompanyController extends AbstractController
         '/company/create',
         name: 'company_create',
     )]
-    public function createCompany(CompanyRepository $compRepo, Request $request):Response
+    public function createCompany(CompanyRepository $compRepo, Request $request): Response
     {
         $company = new Company();
 
         $form = $this->createFormBuilder($company)
+
             ->add('name',TextType::class, ['label' => "Nom de l'entreprise"])
             ->add('email',TextType::class, ['label' => "Mail de l'entreprise"])
             ->add('save',SubmitType::class, ['label' => 'Créer une entreprise'])
