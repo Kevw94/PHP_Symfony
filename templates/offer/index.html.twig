@@ -6,22 +6,33 @@
 {% endblock %}
 
 {% block body %}
+    <h1 class="display-4 text-center">
+        Offres
+    </h1>
+    <br>
+    <div class="container text-end">
+        <a class="btn btn-outline-dark btn-sm " id="btn_delete" href="{{ path('create_offer') }}">Créer une offre.</a>
+    </div>
+    <br>
+    <div class="container ">
+        <div class="row justify-content-center">
+        </div>
+    </div>
     <div class="container">
         {% for offer in offers %}
-            <li>
-                <h3>{{ offer.company.name }}</h3>
-                {% if offer.status == 'online' %}
-                    <span>Vous pouvez Postuler à cette offre.</span>
-                {% else %}
-                    <span>Vous ne pouvez plus Postuler à cette offre.</span>
-                {% endif %}
-                <div>{{ offer.description }}</div>
-            </li>
+            <div class="card mb-4" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ offer.company.name }}</h5>
+
+                    {% if offer.status == 'online' %}
+                        <h6 class="card-subtitle mb-2 text-muted">Vous pouvez Postuler à cette offre.</h6>
+                    {% else %}
+                        <h6 class="card-subtitle mb-2 text-muted">Vous ne pouvez pas Postuler à cette offre.</h6>
+                    {% endif %}
+                    <h5 class="card-title">{{ offer.description }}</h5>
+                </div>
+            </div>
         {% endfor %}
-        <div>
-            <a class="btn btn-outline-dark btn-sm " id="btn_delete" href="{{ path('create_offer')}}">Créer une offre.</a>
-        </div>
-
     </div>
-
+    <br>
 {% endblock %}
