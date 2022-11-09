@@ -31,6 +31,8 @@
                     {% endif %}
                     <h5 class="card-title">{{ offer.description }}</h5>
                 </div>
+                <a class="btn btn-outline-dark btn-sm "
+                   href="{{ path('offer_edit',  {'id': offer.id}) }}">Modifier mon offre</a>
             </div>
         {% endfor %}
     </div>
