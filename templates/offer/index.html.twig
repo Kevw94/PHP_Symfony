@@ -6,13 +6,19 @@
 {% endblock %}
 
 {% block body %}
-<div class="container">
-	{% for offer in offers %}
-	<li>{{ offer.description }}</li>
-	<li>{{ offer.status }}</li>
-{#	<li>{{ offer.company.name }}</li>#}
-	{% endfor %}
+    <div class="container">
+        {% for offer in offers %}
+            <li>
+                <h3>{{ offer.company.name }}</h3>
+                {% if offer.status == 'online' %}
+                    <span>Vous pouvez Postuler à cette offre.</span>
+                {% else %}
+                    <span>Vous ne pouvez plus Postuler à cette offre.</span>
+                {% endif %}
+                <div>{{ offer.description }}</div>
+            </li>
+        {% endfor %}
 
-</div>
+    </div>
 
 {% endblock %}
