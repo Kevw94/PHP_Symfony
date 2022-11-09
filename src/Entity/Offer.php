@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\OfferRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OfferRepository::class)]
@@ -14,14 +13,11 @@ class Offer
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $companyId = null;
+    #[ORM\ManyToOne(targetEntity: Company::class, inversedBy: 'offers')]
+    private ?Company $company = null;
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
@@ -31,14 +27,14 @@ class Offer
         return $this->id;
     }
 
-    public function getCompanyId(): ?int
+    public function getCompany(): ?Company
     {
-        return $this->companyId;
+        return $this->company;
     }
 
-    public function setCompanyId(int $companyId): self
+    public function setCompany(?Company $company): self
     {
-        $this->companyId = $companyId;
+        $this->company = $company;
 
         return $this;
     }
@@ -51,18 +47,6 @@ class Offer
     public function setStatus(string $status): self
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -6,16 +6,13 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <Stack direction="row" spacing={2}>
-            <Button class="btn btn-primary">Contained</Button>
-            <Button variant="contained" disabled>
-                Disabled
-            </Button>
-            <Button variant="contained" href="#contained-buttons">
-                Link
-            </Button>
-        </Stack>
-    </div>
+<div class="container">
+	{% for offer in offers %}
+	<li>{{ offer.description }}</li>
+	<li>{{ offer.status }}</li>
+{#	<li>{{ offer.company.name }}</li>#}
+	{% endfor %}
+
+</div>
 
 {% endblock %}
