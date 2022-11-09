@@ -6,6 +6,9 @@
 {% block title %}Hello CandidateController!{% endblock %}
 
 {% block body %}
+    <div>
+        <a class="btn btn-outline-dark btn-sm " id="btn_delete" href="{{ path('create_candidate')}}">Créer un candicat</a>
+    </div>
     {% for candidate in candidates %}
         <div>Name : {{ candidate.name }} Lastname : {{ candidate.lastName }}</div>
     {% endfor %}
