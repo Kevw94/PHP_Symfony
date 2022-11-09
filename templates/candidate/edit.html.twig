@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'un candidat{% endblock %}
+
+{% block body %}
+    <div class="card mx-auto" style="width: 40rem">
+        <div class="card-header">
+            Modifiez votre profil
+        </div>
+        <div class="card-body">
+            {{ form(form) }}
+        </div>
+    </div>
+{% endblock %}
