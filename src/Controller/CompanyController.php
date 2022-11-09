@@ -12,53 +12,50 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Repository\CompanyRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class CompanyController extends AbstractController 
+class CompanyController extends AbstractController
 {
+    #[Route(
+        '/company',
+        name: 'app_company'
+    )]
+    public function index(CompanyRepository $compRepo): Response
+    {
+        $companies = $compRepo->findAll();
+
+        return $this->render('company/index.html.twig', [
+            'companies' => $companies,
+            'controller_name' => 'CompanyController',
+        ]);
+    }
+
+    #[Route(
+        '/company/create',
+        name: 'company_create',
+    )]
+    public function createCompany(CompanyRepository $compRepo, Request $request): Response
+    {
+        $company = new Company();
+
+        $form = $this->createFormBuilder($company)
+            ->add('name', TextType::class, ['label' => "Nom de l'entreprise"])
+            ->add('email', TextType::class, ['label' => "Mail de l'entreprise"])
+            ->add('save', SubmitType::class, ['label' => 'Créer une entreprise'])
+            ->getForm();
 
 
-#[Route(
-    '/company', 
-    name: 'app_company'
-)]
-public function index(CompanyRepository $compRepo): Response
-{
-    $companies = $compRepo->findAll();
-
-    return $this->render('company/index.html.twig', [
-        'companies' => $companies,
-        'controller_name' => 'CompanyController',
-    ]);
-}
-
- #[Route(
-    '/company/create',
-    name: 'company_create',
- )]
- public function createCompany(CompanyRepository $compRepo, Request $request):Response
- {
-    $company = new Company();
-
-    $form = $this->createFormBuilder($company)
-        ->add('name',TextType::class, ['label' => "Nom de l'entreprise"])
-        ->add('email',TextType::class, ['label' => "Mail de l'entreprise"])
-        ->add('save',SubmitType::class, ['label' => 'Créer une entreprise'])
-        ->getForm();
-
-
-        $form -> handleRequest($request);
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $company = $form->getData();
             $compRepo->save($company, true);
             return $this->redirectToRoute('app_company');
         }
 
-    
-    return $this->renderForm('company/create.html.twig', [
-        'form' => $form,
-    ]);
- }
 
- 
+        return $this->renderForm('company/create.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
 
 }
 //  {
