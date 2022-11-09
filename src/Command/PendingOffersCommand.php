@@ -9,12 +9,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 
 #[AsCommand(
-    name:'app:test',
-    description:'this is a test',
+    name:'app:pending_offers',
+    description:"returns a list of offers which doesn't have a registered candidate (pending offers)",
     hidden: false,
-    aliases: ['app:base-test'],
+    aliases: ['app:p_off'],
 )]
-class TestCommand extends Command
+class PendingOffersCommand extends Command
 {
     protected function configure(): void
     {
@@ -29,10 +29,8 @@ class TestCommand extends Command
 
         //fetch toutes les offres qui n'ont pas de candidat retenu (toutes les offres à pourvoir) ou qui ont un status empty
         $output->writeln([
-            'TEST TEST',
-            '============',
-            'Whoa!',
-            'You are about to Test',
+            ' Pending Offers ',
+            '=================',
         ]);
         return Command::SUCCESS;
 }}
