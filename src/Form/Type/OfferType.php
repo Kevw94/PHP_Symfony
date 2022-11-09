@@ -21,10 +21,12 @@ class OfferType extends AbstractType
         $builder
             ->add('company', EntityType::class, [
                 'class' => Company::class,
+                'label' => "Nom de votre entreprise",
                 'choice_label' => 'name'])
 //            ->add('status', TextType::class)
             ->add('skills', EntityType::class, [
                 'class' => Skill::class,
+                'label' => "Compétences recherchées",
                 'choice_label' => 'skills',
                 'multiple' => true,
                 'expanded' => true
