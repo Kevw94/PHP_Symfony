@@ -7,6 +7,9 @@
 
 {% block body %}
     <div class="container">
+        <div>
+            <a class="btn btn-outline-dark btn-sm " id="btn_delete" href="{{ path('create_offer')}}">Créer une offre.</a>
+        </div>
         {% for offer in offers %}
             <li>
                 <h3>{{ offer.company.name }}</h3>
@@ -18,10 +21,6 @@
                 <div>{{ offer.description }}</div>
             </li>
         {% endfor %}
-        <div>
-            <a class="btn btn-outline-dark btn-sm " id="btn_delete" href="{{ path('create_offer')}}">Créer une offre.</a>
-        </div>
-
     </div>
 
 {% endblock %}
