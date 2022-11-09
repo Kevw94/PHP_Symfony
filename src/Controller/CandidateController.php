@@ -3,36 +3,47 @@
 namespace App\Controller;
 
 use App\Entity\Candidate;
+use App\Form\Type\CandidateType;
 use App\Repository\CandidateRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CandidateController extends AbstractController
 {
+    const OPEN = "open";
+    const CLOSE = "close";
+
     #[Route('/candidate', name: 'app_candidate')]
     public function get_all_candidate(CandidateRepository $candidateRepository): Response
     {
         $candidates = $candidateRepository->findAll();
-        //print_r($candidates);
+
         return $this->render('candidate/index.html.twig', [
             'controller_name' => 'CandidateController',
             'candidates' => $candidates
         ]);
     }
 
-    #[Route('/candidate/new', name: 'create_candidate')]
-    public function create_candidate(CandidateRepository $candidateRepository): Response
+    #[Route('/candidate/create', name: 'create_candidate')]
+    public function create_candidate(Request $request, CandidateRepository $candidateRepository): Response
     {
-        $candidate = new Candidate();
-        $candidate->setName('Ezic');
-        $candidate->setLastName('Remmour');
-        $candidate->setEmail('ze!');
-        $candidate->setStatus('en pleine campagne');
+        $newCandidate = new Candidate();
+        $newCandidate->setStatus(self::OPEN);
 
-        $candidateRepository->save($candidate, true);
+        $form = $this->createForm(CandidateType::class, $newCandidate);
 
-        return new Response('Created new candidate with id ' . $candidate->getId());
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newCandidate = $form->getData();
+            $candidateRepository->save($newCandidate, true);
+            return $this->redirectToRoute('app_candidate');
+        }
+
+        return $this->renderForm('candidate/new.html.twig', [
+            'form' => $form,
+        ]);
     }
 
     #[Route('/candidate/{id}/offers', name: 'find_candidate_candidacies')]
