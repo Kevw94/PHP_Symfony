@@ -1,19 +1,21 @@
 {% extends 'base.html.twig' %}
 
+{% set route_name = app.request.attributes.get('_route') %}
+
 {% block title %}Hello OfferController!
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-    <Stack direction="row" spacing={2}>
-      <Button variant="contained">Contained</Button>
-      <Button variant="contained" disabled>
-        Disabled
-      </Button>
-      <Button variant="contained" href="#contained-buttons">
-        Link
-      </Button>
-    </Stack>
-	</div>
+    <div class="container">
+        <Stack direction="row" spacing={2}>
+            <Button class="btn btn-primary">Contained</Button>
+            <Button variant="contained" disabled>
+                Disabled
+            </Button>
+            <Button variant="contained" href="#contained-buttons">
+                Link
+            </Button>
+        </Stack>
+    </div>
 
 {% endblock %}
