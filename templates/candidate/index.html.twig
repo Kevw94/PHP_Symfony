@@ -6,15 +6,7 @@
 {% block title %}Hello CandidateController!{% endblock %}
 
 {% block body %}
-
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/kev/Documents/cours_PHP/cours_symfony/PHP_symfony/src/Controller/CandidateController.php'|file_link(0) }}">src/Controller/CandidateController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/kev/Documents/cours_PHP/cours_symfony/PHP_symfony/templates/candidate/index.html.twig'|file_link(0) }}">templates/candidate/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {% for candidate in candidates %}
+        <div>Name : {{ candidate.name }} Lastname : {{ candidate.lastName }}</div>
+    {% endfor %}
 {% endblock %}
