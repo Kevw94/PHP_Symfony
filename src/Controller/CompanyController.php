@@ -58,6 +58,32 @@ public function index(CompanyRepository $compRepo): Response
     ]);
  }
 
+#[Route(
+    '/company/edit/{id}',
+    name: 'company_edit',
+)]
+public function editCompany(CompanyRepository $compRepo, Request $request):Response
+{   
+    $companyId = $request->query->get('id');
+    
+    $company = $compRepo->findOneById($companyId);
+    $company->setName($company.name);
+    $company->setMail($company.email);
+
+    $form = $this->createFormBuilder($company)
+    ->add('name',TextType::class, ['label' => "Nom de l'entreprise"])
+    ->add('email',TextType::class, ['label' => "Mail de l'entreprise"])
+    ->add('save',SubmitType::class, ['label' => 'Modifier entreprise'])
+    ->getForm();
+
+    $form -> handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        $company = $form->getData();
+        $compRepo->save($company, true);
+        return $this->redirectToRoute('app_company');
+    }
+}
+
  
 
 }
