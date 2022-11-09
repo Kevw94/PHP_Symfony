@@ -26,7 +26,7 @@ class CandidateController extends AbstractController
         ]);
     }
 
-    #[Route('/candidate/create', name: 'create_candidate')]
+    #[Route('/candidate/create', name: 'create_candidate', methods: ['GET', 'POST'])]
     public function create_candidate(Request $request, CandidateRepository $candidateRepository): Response
     {
         $newCandidate = new Candidate();
@@ -50,7 +50,6 @@ class CandidateController extends AbstractController
     public function get_user_offers(CandidateRepository $candidateRepository, int $id): Response
     {
         $candidate = $candidateRepository->find($id);
-        //dd($candidacies);
 
         if (!$candidate) {
             return new Response('Error no user found for id: ' . $id);

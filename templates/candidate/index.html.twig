@@ -7,9 +7,16 @@
 
 {% block body %}
     <div>
-        <a class="btn btn-outline-dark btn-sm " id="btn_delete" href="{{ path('create_candidate')}}">Créer un candicat</a>
+        <a class="btn btn-outline-dark btn-sm " href="{{ path('create_candidate') }}">Créer un candicat</a>
     </div>
     {% for candidate in candidates %}
         <div>Name : {{ candidate.name }} Lastname : {{ candidate.lastName }}</div>
+        {% if candidate.status == "open" %}
+            <span>Disponible.</span>
+        {% else %}
+            <span>Pas Disponible.</span>
+        {% endif %}
+        <a class="btn btn-outline-dark btn-sm " href="{{ path('find_candidate_candidacies',  {'id': candidate.id}) }}">Accéder
+            à mes offres.</a>
     {% endfor %}
 {% endblock %}
