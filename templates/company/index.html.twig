@@ -6,12 +6,12 @@
 
 {% block body %}
     <h1 class="display-4 text-center">
-        Companies
+        Entreprises
     </h1>
     <br>
     <div class="container text-end">
 
-        <a class="btn btn-outline-dark btn-sm " href="{{ path('company_create') }}">Create new profil</a>
+        <a class="btn btn-outline-dark btn-sm " href="{{ path('company_create') }}">Inscrivez votre entreprise</a>
     </div>
     <br>
 
@@ -24,14 +24,13 @@
                         <h6 class="card-subtitle mb-2 text-muted">{{ company.email }}</h6>
                         <div class="text-end">
                             <a class="btn btn-outline-dark btn-sm "
-                               href="{{ path('company_edit', {'id' : company.id}) }}">Modify profil</a>
+                               href="{{ path('company_edit', {'id' : company.id}) }}">Mofifiez votre profil
+                                d'entreprise</a>
                         </div>
                     </div>
                 </div>
                 <br>
             {% endfor %}
-
-
         </div>
     </div>
 {% endblock %}
