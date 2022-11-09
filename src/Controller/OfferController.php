@@ -21,31 +21,32 @@ class OfferController extends AbstractController
     #[Route('/offer', name: 'app_offer', methods: ['GET'])]
     public function index(OfferRepository $offerRepository): Response
     {
-		$offers = $offerRepository->findAll();
+        $offers = $offerRepository->findAll();
 
         return $this->render('offer/index.html.twig', [
-			'offers' => $offers,
+            'offers' => $offers,
             'controller_name' => 'OfferController',
         ]);
     }
-	#[Route('/offer/create', name: 'create_offer')]
-	public function create_offer(Request $request, OfferRepository $offerRepository): Response
-	{
-		$newOffer = new Offer();
 
-		$newOffer->setStatus(self::STATUS_ONLINE);
+    #[Route('/offer/create', name: 'create_offer')]
+    public function create_offer(Request $request, OfferRepository $offerRepository): Response
+    {
+        $newOffer = new Offer();
 
-		$form = $this->createForm(OfferType::class, $newOffer);
+        $newOffer->setStatus(self::STATUS_ONLINE);
 
-		$form->handleRequest($request);
-		if ($form->isSubmitted() && $form->isValid()) {
-			$newOffer = $form->getData();
-			$offerRepository->save($newOffer, true);
-			return $this->redirectToRoute('app_offer');
-		}
+        $form = $this->createForm(OfferType::class, $newOffer);
 
-		return $this->renderForm('offer/new.html.twig', [
-			'form' => $form,
-		]);
-	}
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newOffer = $form->getData();
+            $offerRepository->save($newOffer, true);
+            return $this->redirectToRoute('app_offer');
+        }
+
+        return $this->renderForm('offer/new.html.twig', [
+            'form' => $form,
+        ]);
+    }
 }
