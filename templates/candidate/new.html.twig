@@ -3,7 +3,12 @@
 {% block title %}Création d'un candidat{% endblock %}
 
 {% block body %}
-    <div>
-        {{form(form)}}
+    <div class="card mx-auto" style="width: 40rem">
+        <div class="card-header">
+           Inscrivez-vous !
+        </div>
+        <div class="card-body">
+            {{ form(form) }}
+        </div>
     </div>
 {% endblock %}

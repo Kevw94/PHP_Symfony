@@ -6,17 +6,37 @@
 {% block title %}Hello CandidateController!{% endblock %}
 
 {% block body %}
-    <div>
+    <h1 class="display-4 text-center">
+        Candidats
+    </h1>
+    <br>
+    <div class="container text-end">
         <a class="btn btn-outline-dark btn-sm " href="{{ path('create_candidate') }}">Créer un candicat</a>
     </div>
-    {% for candidate in candidates %}
-        <div>Name : {{ candidate.name }} Lastname : {{ candidate.lastName }}</div>
-        {% if candidate.status == "open" %}
-            <span>Disponible.</span>
-        {% else %}
-            <span>Pas Disponible.</span>
-        {% endif %}
-        <a class="btn btn-outline-dark btn-sm " href="{{ path('find_candidate_candidacies',  {'id': candidate.id}) }}">Accéder
-            à mes offres.</a>
-    {% endfor %}
+    <br>
+    <div class="container ">
+        <div class="row justify-content-center">
+            {% for candidate in candidates %}
+                <div class="card mb-4" style="width: 20rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ candidate.name }}</h5>
+                        <h5 class="card-title">{{ candidate.lastName }}</h5>
+
+                        {% if candidate.status == "open" %}
+                            <h6 class="card-subtitle mb-2 text-muted">Disponible</h6>
+                        {% else %}
+                            <h6 class="card-subtitle mb-2 text-muted">Pas Disponible</h6>
+                        {% endif %}
+                        <div class="text-end">
+                            <a class="btn btn-outline-dark btn-sm "
+                               href="{{ path('find_candidate_candidacies',  {'id': candidate.id}) }}">Accéder
+                                à mes offres.</a>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
 {% endblock %}

@@ -1,7 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TaskController!{% endblock %}
+{% block title %}Create Offer!{% endblock %}
 
 {% block body %}
-{{ form(form) }}
+    <div class="card mx-auto" style="width: 40rem">
+        <div class="card-header">
+            Créez votre Offre !
+        </div>
+        <div class="card-body">
+            {{ form(form) }}
+        </div>
+    </div>
 {% endblock %}
