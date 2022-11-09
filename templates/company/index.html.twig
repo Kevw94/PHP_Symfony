@@ -2,25 +2,36 @@
 
 {% set route_name = app.request.attributes.get('_route') %}
 
-{% block title %}Hello CompanyController!{% endblock %}
+{% block title %} Company{% endblock %}
 
 {% block body %}
-<div>
-        <div>
-                <a class="btn btn-outline-dark btn-sm " href="{{ path('company_create') }}">Ajouter une Entreprise.</a>
+    <h1 class="display-4 text-center">
+        Companies
+    </h1>
+    <br>
+    <div class="container text-end">
+
+        <a class="btn btn-outline-dark btn-sm " href="{{ path('company_create') }}">Create new profil</a>
+    </div>
+    <br>
+
+    <div class="container ">
+        <div class="row justify-content-center">
+            {% for company in companies %}
+                <div class="card mb-4" style="width: 20rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ company.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ company.email }}</h6>
+                        <div class="text-end">
+                            <a class="btn btn-outline-dark btn-sm "
+                               href="{{ path('company_edit', {'id' : company.id}) }}">Modify profil</a>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+
+
         </div>
-    {% for company in companies %}
-        <div>
-            {{company.name}}
-        </div>
-        <div>
-            {{company.email}}
-        </div>
-        <div>
-            
-            <a class="btn btn-outline-dark btn-sm" href="{{ path('company_edit', {'id' : company.id}) }}">Modifier</a>
-        </div>
-        <br>
-    {% endfor %}
-</div>
+    </div>
 {% endblock %}
