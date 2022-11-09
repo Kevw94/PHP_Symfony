@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello !{% endblock %}
+
+{% block body %}
+    {% for candidacy in candidacies %}
+        <div>{{ candidacy.offer.description }}</div>
+    {% endfor %}
+{% endblock %}
