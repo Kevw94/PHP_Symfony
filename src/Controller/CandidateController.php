@@ -5,8 +5,6 @@ namespace App\Controller;
 use App\Entity\Candidate;
 use App\Form\Type\CandidateType;
 use App\Repository\CandidateRepository;
-use App\Entity\Candidate;
-use App\Repository\CandidateRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

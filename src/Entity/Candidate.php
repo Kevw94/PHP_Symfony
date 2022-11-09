@@ -30,9 +30,13 @@ class Candidate
     #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Candidacy::class)]
     private Collection $candidacies;
 
+    #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'candidates')]
+    private Collection $skills;
+
     public function __construct()
     {
         $this->candidacies = new ArrayCollection();
+        $this->skills = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,6 +118,30 @@ class Candidate
                 $candidacy->setIdUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Skill>
+     */
+    public function getSkills(): Collection
+    {
+        return $this->skills;
+    }
+
+    public function addSkill(Skill $skill): self
+    {
+        if (!$this->skills->contains($skill)) {
+            $this->skills->add($skill);
+        }
+
+        return $this;
+    }
+
+    public function removeSkill(Skill $skill): self
+    {
+        $this->skills->removeElement($skill);
 
         return $this;
     }

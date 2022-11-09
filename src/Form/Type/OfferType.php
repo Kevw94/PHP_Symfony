@@ -4,6 +4,7 @@
 namespace App\Form\Type;
 
 use App\Entity\Company;
+use App\Entity\Skill;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,6 +23,12 @@ class OfferType extends AbstractType
                 'class' => Company::class,
                 'choice_label' => 'name'])
 //            ->add('status', TextType::class)
+            ->add('skills', EntityType::class, [
+                'class' => Skill::class,
+                'choice_label' => 'skills',
+                'multiple' => true,
+                'expanded' => true
+            ])
             ->add('description', TextType::class)
             ->add('save', SubmitType::class);
     }
