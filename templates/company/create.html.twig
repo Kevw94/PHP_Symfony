@@ -1,9 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Création d'entreprise{% endblock %}
+{% block title %}Create company{% endblock %}
 
 {% block body %}
-<div>
-    {{form(form)}}
-</div>
+    <div class="card mx-auto" style="width: 40rem">
+        <div class="card-header">
+            Create
+        </div>
+        <div class="card-body">
+            {{ form(form) }}
+        </div>
+    </div>
 {% endblock %}
