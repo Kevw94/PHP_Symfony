@@ -17,8 +17,15 @@ class MatchingController extends AbstractController
     #[Route('/matching/{id}')]
     public function matching(string $id, CandidateRepository $candidateRepository, MatchingService $matchingService)
     {
+        $candidate = $candidateRepository->find($id);
+        $skills = $candidate->getSkills();
+        //dd($skills);
 
         $result = $matchingService->matchOffers($candidateRepository->find($id));
-        return new Response();
+        //dd($result);
+        return $this->render('matching/matching.html.twig',[
+            'offers' => $result,
+            ]
+        );
     }
 }

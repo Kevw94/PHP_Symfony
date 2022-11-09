@@ -21,12 +21,20 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ candidate.name }}</h5>
                         <h5 class="card-title">{{ candidate.lastName }}</h5>
-
+                        <div>skills
+                            {% for skill in candidate.skills %}
+                                <h6 class="card-subtitle mb-2 text-muted">{{ skill.skills }}</h6>
+                            {% endfor %}
+                        </div>
                         {% if candidate.status == "open" %}
                             <h6 class="card-subtitle mb-2 text-muted">Disponible</h6>
                         {% else %}
                             <h6 class="card-subtitle mb-2 text-muted">Pas Disponible</h6>
                         {% endif %}
+                        <div class="">
+                            <a class="btn btn-outline-dark btn-sm "
+                               href="{{ path('app_matching_matching',  {'id': candidate.id}) }}">Offres pour mes compétences</a>
+                        </div>
                         <div class="text-end">
                             <a class="btn btn-outline-dark btn-sm "
                                href="{{ path('find_candidate_candidacies',  {'id': candidate.id}) }}">Accéder
