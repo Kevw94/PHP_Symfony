@@ -10,5 +10,10 @@
         <div class="card-body">
             {{ form(form) }}
         </div>
+        <div class="card-body">
+            Vous ne trouvez pas votre compétence ?
+            <a class="btn btn-outline-dark btn-sm "
+               href="{{ path('add_skill')}}">Ajoutez la !</a>
+        </div>
     </div>
 {% endblock %}

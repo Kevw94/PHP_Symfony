@@ -36,4 +36,28 @@ class SkillController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/skill/create/{id}', name: 'add_skill_id')]
+    public function addSkillFromCandidate(SkillRepository $skillRepository, Request $request, int $id){
+
+        $skill = new Skill();
+
+        $form = $this->createFormBuilder($skill)
+
+            ->add('skills',TextType::class, ['label' => "New skill"])
+            ->add('save',SubmitType::class, ['label' => 'Save'])
+            ->getForm();
+
+
+        $form -> handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $skill = $form->getData();
+            $skillRepository->save($skill, true);
+            return $this->redirectToRoute('candidate_edit', array('id' => $id));
+        }
+
+        return $this->renderForm('skill/create_skill_fromCandidate.html.twig', [
+            'form' => $form,
+        ]);
+    }
 }

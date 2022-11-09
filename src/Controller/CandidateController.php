@@ -81,6 +81,7 @@ class CandidateController extends AbstractController
 
         return $this->renderForm('candidate/edit.html.twig', [
             'form' => $form,
+            'candidateId' => $id
         ]);
     }
 }
