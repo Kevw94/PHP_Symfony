@@ -61,4 +61,27 @@ class CandidateController extends AbstractController
             'candidacies' => $candidacies
         ]);
     }
+
+    #[Route(
+        '/candidate/edit/{id}',
+        name: 'candidate_edit',
+    )]
+    public function editCandidate(CandidateRepository $candidateRepository, Request $request, int $id): Response
+    {
+        $candidateToEdit = $candidateRepository->find($id);
+
+        $form = $this->createForm(CandidateType::class, $candidateToEdit);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $candidateToEdit = $form->getData();
+            $candidateRepository->save($candidateToEdit, true);
+            return $this->redirectToRoute('app_candidate');
+        }
+
+        return $this->renderForm('candidate/edit.html.twig', [
+            'form' => $form,
+            'candidateId' => $id
+        ]);
+    }
 }

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Création d'un candidat{% endblock %}
+{% block title %}Modification d'un candidat{% endblock %}
 
 {% block body %}
     <div class="card mx-auto" style="width: 40rem">
         <div class="card-header">
-           Inscrivez-vous !
+            Modifiez votre profil
         </div>
         <div class="card-body">
             {{ form(form) }}
@@ -13,7 +13,7 @@
         <div class="card-body">
             Vous ne trouvez pas votre compétence ?
             <a class="btn btn-outline-dark btn-sm "
-               href="{{ path('add_skill')}}">Ajoutez la !</a>
+               href="{{ path('add_skill_id', {'id': candidateId})}}">Ajoutez la !</a>
         </div>
     </div>
 {% endblock %}

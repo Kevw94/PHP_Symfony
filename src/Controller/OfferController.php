@@ -47,4 +47,27 @@ class OfferController extends AbstractController
             'form' => $form,
         ]);
     }
+
+
+
+    #[Route('/offer/edit/{id}', name: 'offer_edit')]
+    public function editOffer(OfferRepository $offerRepository, Request $request, int $id): Response
+    {
+        $editOffer = $offerRepository->find($id);
+
+        $form = $this->createForm(OfferType::class, $editOffer);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $editOffer = $form->getData();
+            $offerRepository->save($editOffer, true);
+            return $this->redirectToRoute('app_offer');
+        }
+
+        return $this->renderForm('offer/edit.html.twig', [
+            'form' => $form,
+        ]);
+    }
 }
+
+
