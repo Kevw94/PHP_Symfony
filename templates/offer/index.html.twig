@@ -14,30 +14,31 @@
         <a class="btn btn-outline-dark btn-sm " id="btn_delete" href="{{ path('create_offer') }}">Créer une offre</a>
     </div>
     <br>
-    <div class="container ">
-        <div class="row justify-content-center">
-        </div>
-    </div>
-    <div class="container row justify-content-center">
-        {% for offer in offers %}
-            <div class="card mb-4" style="width: 20rem;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ offer.company.name }}</h5>
+    <div class="row justify-content-center">
 
-                    {% if offer.status == 'online' %}
-                        <h6 class="card-subtitle mb-2 text-muted">Vous pouvez Postuler à cette offre.</h6>
-                    {% else %}
-                        <h6 class="card-subtitle mb-2 text-muted">Vous ne pouvez pas Postuler à cette offre.</h6>
-                    {% endif %}
-                    <div>skills
-                        {% for skill in offer.skills %}
-                            <h6 class="card-subtitle mb-2 text-muted">{{ skill.skills }}</h6>
-                        {% endfor %}
-                    </div>
+        {% for offer in offers %}
+            <div class="card mb-4 px-0" style="width: 20rem;">
+                <h6 class="card-header">{{ offer.company.name }}</h6>
+                <div class="card-body">
                     <h5 class="card-title">{{ offer.description }}</h5>
+                    <div>Compétences requises : <br>
+                            {% for skill in offer.skills %}
+                                <h6 class="badge text-bg-light">{{ skill.skills }}</h6>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="text-center mt-2">
+                        <a class="btn btn-outline-dark btn-sm "
+                           href="{{ path('offer_edit',  {'id': offer.id}) }}">Modifier mon offre</a>
+                    </div>
                 </div>
-                <a class="btn btn-outline-dark btn-sm "
-                   href="{{ path('offer_edit',  {'id': offer.id}) }}">Modifier mon offre</a>
+                <div class="card-footer text-muted text-center">
+                    {% if offer.status == 'online' %}
+                        Vous pouvez Postuler à cette offre.
+                    {% else %}
+                        Vous ne pouvez pas Postuler à cette offre.
+                    {% endif %}
+                </div>
             </div>
             <br>
         {% endfor %}

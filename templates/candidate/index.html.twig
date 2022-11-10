@@ -11,42 +11,40 @@
     </h1>
     <br>
     <div class="container text-end">
-        <a class="btn btn-outline-dark btn-sm " href="{{ path('create_candidate') }}">Créer un candicat</a>
+        <a class="btn btn-outline-dark btn-sm " href="{{ path('create_candidate') }}">Créer un candidat</a>
     </div>
     <br>
-    <div class="container ">
-        <div class="row justify-content-center">
-            {% for candidate in candidates %}
-                <div class="card mb-4" style="width: 20rem;">
+    <div class="row justify-content-center">
+        {% for candidate in candidates %}
+            <div class="card mb-4 px-0" style="width: 25rem;">
+                <div class="card-header">
+                    <h5 style="width: 15rem">{{ candidate.name }} {{ candidate.lastName }}</h5>
+                    <a class="btn btn-outline-dark btn-sm " style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .65rem;"
+
+                    href="{{ path('candidate_edit',  {'id': candidate.id}) }}">Modifier profil</a>
+                </div>
+                <div class="card-body">
+                    {% if candidate.status == "open" %}
+                        <h6 class="badge text-bg-success">Disponible</h6>
+                    {% else %}
+                        <h6 class="badge text-bg-danger">Pas Disponible</h6>
+                    {% endif %}
+                    <div><p> Compétences : </p>
+                        {% for skill in candidate.skills %}
+                            <h6 class="badge text-bg-light">{{ skill.skills }}</h6>
+                        {% endfor %}
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ candidate.name }}</h5>
-                        <h5 class="card-title">{{ candidate.lastName }}</h5>
-                        <div>skills
-                            {% for skill in candidate.skills %}
-                                <h6 class="card-subtitle mb-2 text-muted">{{ skill.skills }}</h6>
-                            {% endfor %}
-                        </div>
-                        {% if candidate.status == "open" %}
-                            <h6 class="card-subtitle mb-2 text-muted">Disponible</h6>
-                        {% else %}
-                            <h6 class="card-subtitle mb-2 text-muted">Pas Disponible</h6>
-                        {% endif %}
-                        <div class="">
-                            <a class="btn btn-outline-dark btn-sm "
-                               href="{{ path('app_matching_matching',  {'id': candidate.id}) }}">Offres pour mes compétences</a>
-                        </div>
-                        <div class="text-end">
-                            <a class="btn btn-outline-dark btn-sm "
-                               href="{{ path('find_candidate_candidacies',  {'id': candidate.id}) }}">Accéder
-                                à mes offres.</a>
-                            <a class="btn btn-outline-dark btn-sm "
-                               href="{{ path('candidate_edit',  {'id': candidate.id}) }}">Modifier mon profil</a>
-                        </div>
+                        <a class="btn btn-outline-dark btn-sm mb-2 "
+                           href="{{ path('app_matching_matching',  {'id': candidate.id}) }}">Offres pour moi</a>
+                        <a class="btn btn-outline-dark btn-sm mb-2"
+                           href="{{ path('find_candidate_candidacies',  {'id': candidate.id}) }}">Accéder
+                            à mes offres</a>
                     </div>
                 </div>
-                <br>
-            {% endfor %}
-        </div>
+            </div>
+            <br>
+        {% endfor %}
     </div>
     <br>
 {% endblock %}
