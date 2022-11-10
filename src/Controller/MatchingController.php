@@ -22,9 +22,10 @@ class MatchingController extends AbstractController
         //dd($skills);
 
         $result = $matchingService->matchOffers($candidateRepository->find($id));
-        //dd($result);
+
         return $this->render('matching/matching.html.twig',[
             'offers' => $result,
+                'candidateId' => $id,
             ]
         );
     }
