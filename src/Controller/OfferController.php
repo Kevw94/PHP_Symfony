@@ -88,7 +88,7 @@ class OfferController extends AbstractController
     public function validateCandidate(int $id, int $idUser, int $companyId, OfferRepository $offerRepository, CandidateRepository $candidateRepository): Response
     {
         $editOffer = $offerRepository->find($id);
-        $editOffer = $editOffer->setStatus('filled');
+        $editOffer = $editOffer->setStatus('offline');
         $offerRepository->save($editOffer, true);
 
         $editCandidate = $candidateRepository->find($idUser);
