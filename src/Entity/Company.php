@@ -66,10 +66,6 @@ class Company
         return $this->offers;
     }
 
-    public function getOffersById(int $id): Collection
-    {
-        return $this->offers;
-    }
 
     public function addOffer(Offer $offer): self
     {
