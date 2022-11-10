@@ -66,7 +66,6 @@ class Company
         return $this->offers;
     }
 
-
     public function addOffer(Offer $offer): self
     {
         if (!$this->offers->contains($offer)) {
