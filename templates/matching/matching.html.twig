@@ -18,16 +18,21 @@
                         {% endfor %}
                     </div>
                     <div>
-                        {% for candidacie in candidacies %}
-                            {% if candidacie.offer.id  == offer.id %}
-                                <h6 class="card-subtitle mb-2 ">Vous avez déjà postulé</h6>
-                            {% else %}
-                                <a class="btn btn-outline-dark btn-sm "
-                                   href="{{ path('app_apply',  {'offerId': offer.id, 'candidateId': candidateId}, ) }}">Postuler
-                                    !</a>
-
-                            {% endif %}
-                        {% endfor %}
+                        {% if candidacies %}
+                            {% for candidacie in candidacies %}
+                                {% if candidacie.offer.id  == offer.id %}
+                                    <h6 class="card-subtitle mb-2 ">Vous avez déjà postulé</h6>
+                                {% else %}
+                                    <a class="btn btn-outline-dark btn-sm "
+                                       href="{{ path('app_apply',  {'offerId': offer.id, 'candidateId': candidateId}, ) }}">Postuler
+                                        !</a>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <a class="btn btn-outline-dark btn-sm "
+                               href="{{ path('app_apply',  {'offerId': offer.id, 'candidateId': candidateId}, ) }}">Postuler
+                                !</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

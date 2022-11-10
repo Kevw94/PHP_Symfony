@@ -6,7 +6,7 @@ use App\Repository\OfferRepository;
 use App\Repository\CompanyRepository;
 
 class OfferService
-{    
+{
     private OfferRepository $offerRepository;
 
     public function __construct(OfferRepository $offerRepository)
@@ -47,7 +47,7 @@ class OfferService
 	//faire une fonction pour prendre des offer en param et renvoyer leur parametre en description
 	public function findPendingOffers()
 	{
-		$pendingOffers = $this->offerRepository->findOfferByStatus('Pending');
+		$pendingOffers = $this->offerRepository->findOfferByStatus('applied');
 		return $pendingOffers;
 	}
 }

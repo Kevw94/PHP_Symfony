@@ -15,7 +15,9 @@ use App\Repository\OfferRepository;
 class OfferController extends AbstractController
 {
     const STATUS_ONLINE = "online";
-    const STATUS_OFFLINE = "offline";
+    const STATUS_OFFLINE = self::OFFLINE;
+    const OFFLINE = 'offline';
+    const CLOSE = 'close';
 
     #[Route('/offer', name: 'app_offer', methods: ['GET'])]
     public function index(OfferRepository $offerRepository): Response
@@ -88,11 +90,11 @@ class OfferController extends AbstractController
     public function validateCandidate(int $id, int $idUser, int $companyId, OfferRepository $offerRepository, CandidateRepository $candidateRepository): Response
     {
         $editOffer = $offerRepository->find($id);
-        $editOffer = $editOffer->setStatus('offline');
+        $editOffer = $editOffer->setStatus(self::OFFLINE);
         $offerRepository->save($editOffer, true);
 
         $editCandidate = $candidateRepository->find($idUser);
-        $editCandidate = $editCandidate->setStatus('close');
+        $editCandidate = $editCandidate->setStatus(self::CLOSE);
         $candidateRepository->save($editCandidate, true);
 
 
