@@ -3,29 +3,35 @@
 {% block title %} Modify company{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class=" row justify-content-center ">
         {% for offer in offers %}
-            <div class="card mb-4" style="width: 20rem;">
+            <div class="card px-0 mb-4" style="width: 20rem;">
+                <h5 class="card-header">
+                    {{ offer.company.name }}
+                </h5>
                 <div class="card-body">
-                    <h5 class="card-title">{{ offer.company.name }}</h5>
                     <h5 class="card-title">{{ offer.description }}</h5>
                     <div>
+                        Compétences requises : <br>
                         {% for skill in offer.skills %}
-                            <h6 class="card-subtitle mb-2 text-muted">{{ skill.skills }}</h6>
+                            <h6 class="badge text-bg-light">{{ skill.skills }}</h6>
                         {% endfor %}
                     </div>
                     <div>
                         {% for candidacie in candidacies %}
-                        {% if candidacie.offer.id  == offer.id %}
-                        <h6 class="card-subtitle mb-2 ">Vous avez déjà postulé</h6>
-                        {% else %}
-                        <a class="btn btn-outline-dark btn-sm "
-                           href="{{ path('app_apply',  {'offerId': offer.id, 'candidateId': candidateId}, ) }}">Postuler !</a>
-                        {%endif %}
+                            {% if candidacie.offer.id  == offer.id %}
+                                <h6 class="card-subtitle mb-2 ">Vous avez déjà postulé</h6>
+                            {% else %}
+                                <a class="btn btn-outline-dark btn-sm "
+                                   href="{{ path('app_apply',  {'offerId': offer.id, 'candidateId': candidateId}, ) }}">Postuler
+                                    !</a>
+
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
             </div>
+            <br>
         {% endfor %}
     </div>
 {% endblock %}

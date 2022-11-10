@@ -19,6 +19,9 @@ class ApplyController extends AbstractController
         $candidate = $candidateRepository->find($candidateId);
         $offer = $offerRepository->find($offerId);
 
+        $offer = $offer->setStatus('applied');
+        $offerRepository->save($offer,true);
+
         $newCandidacy->setIdUser($candidate);
         $newCandidacy->setOffer($offer);
 
