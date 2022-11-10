@@ -91,16 +91,23 @@ class CompanyController extends AbstractController
     {
         $company = $compRepo->find($id);
         $companyOffers = $company->getOffers();
-/*        $candidates = $companyOffers->*/
+        $companyOffersFiltered = [];
+
+        foreach($companyOffers as $offer) {
+            $offerStatus = $offer->getStatus();
+            if ($offerStatus == 'online') {
+                array_push($companyOffersFiltered, $offer);
+            }
+        }
 
         if (!$company) {
             return new Response('Error no company found for id: ' . $id);
         }
-        $companies = $company->getOffers();
 
         return $this->render('company/offers.html.twig', [
             'controller_name' => 'CompanyController',
-            'offers' => $companyOffers
+            'offers' => $companyOffersFiltered,
+            'companyId' => $id
         ]);
 
     }

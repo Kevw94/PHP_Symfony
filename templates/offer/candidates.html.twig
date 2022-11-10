@@ -13,7 +13,7 @@
                         <h6 class="card-subtitle mb-2 text-muted">{{ skill.skills }}</h6>
                     {% endfor %}
                     <a class="btn btn-outline-dark btn-sm "
-                       href="{{ path('validate_candidate', {'id' : candidate.id, 'idUser' : candidate.idUser.id}) }}">Recruter</a>
+                       href="{{ path('validate_candidate', {'id' : candidate.id, 'idUser' : candidate.idUser.id, 'companyId': companyId}) }}">Recruter</a>
                 </div>
             </div>
             <br>
