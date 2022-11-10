@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{#
+{% set offers = companies.getValues %}
+#}
+
+{% block title %} Offre de l'entreprise {% endblock %}
+
+{% block body %}
+    <div>
+        {% for offer in offers %}
+            <div class="card">
+                {{ offer.description }}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

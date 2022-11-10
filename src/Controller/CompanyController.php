@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Repository\OfferRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -62,7 +63,7 @@ class CompanyController extends AbstractController
         name: 'company_edit',
     )]
     public function editCompany(CompanyRepository $compRepo, Request $request, int $id):Response
-    {   
+    {
         $company = $compRepo->find($id);
 
         $form = $this->createFormBuilder($company)
@@ -81,5 +82,26 @@ class CompanyController extends AbstractController
         return $this->renderForm('company/edit.html.twig', [
             'form' => $form,
         ]);
+    }
+    #[Route(
+        '/company/offers/{id}',
+        name: 'company_offers',
+    )]
+    public function offersCompany(CompanyRepository $compRepo, int $id):Response
+    {
+        $company = $compRepo->find($id);
+        $companyOffers = $company->getOffers();
+/*        $candidates = $companyOffers->*/
+
+        if (!$company) {
+            return new Response('Error no company found for id: ' . $id);
+        }
+        $companies = $company->getOffers();
+
+        return $this->render('company/offers.html.twig', [
+            'controller_name' => 'CompanyController',
+            'offers' => $companyOffers
+        ]);
+
     }
 }

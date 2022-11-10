@@ -26,11 +26,15 @@
                             <a class="btn btn-outline-dark btn-sm "
                                href="{{ path('company_edit', {'id' : company.id}) }}">Mofifiez votre profil
                                 d'entreprise</a>
+                            <a class="btn btn-outline-dark btn-sm "
+                               href="{{ path('company_offers', {'id' : company.id}) }}">Consulter les offres</a>
                         </div>
                     </div>
                 </div>
                 <br>
             {% endfor %}
+
+
         </div>
     </div>
 {% endblock %}
