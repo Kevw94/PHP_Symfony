@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Candidatures {% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        {% for candidate in candidacies %}
+            <div class="card mb-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ candidate.idUser.name }}</h5>
+                    {% for skill in candidate.idUser.skills %}
+                        <h6 class="card-subtitle mb-2 text-muted">{{ skill.skills }}</h6>
+                    {% endfor %}
+                    <a class="btn btn-outline-dark btn-sm "
+                       href="{{ path('validate_candidate', {'id' : candidate.id, 'idUser' : candidate.idUser.id}) }}">Recruter</a>
+                </div>
+            </div>
+            <br>
+
+        {% endfor %}
+    </div>
+{% endblock %}
