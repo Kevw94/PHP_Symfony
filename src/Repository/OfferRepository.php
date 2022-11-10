@@ -54,13 +54,13 @@ class OfferRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySkilld(Skill $skill): ?Offer
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   public function findOfferByStatus($value): ?Array
+   {
+       return $this->createQueryBuilder('o')
+           ->andWhere('o.status = :value')
+           ->setParameter('value', $value)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 }
