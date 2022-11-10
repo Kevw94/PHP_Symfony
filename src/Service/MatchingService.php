@@ -24,7 +24,7 @@ class MatchingService
     public function matchOffers(Candidate $candidate): array
     {
         $result = array();
-//        $candidate = $this->candidateRepository->find($id);
+//        $candidate = $this->candidateRepository->find($candidate);
         $candidate_skills = $candidate->getSkills();
         $skill_offers = array();
 
@@ -38,7 +38,7 @@ class MatchingService
 
         foreach ($all_offers as $offer) {
             foreach ($skill_offers as $filtered_offer) {
-                if ($filtered_offer['id'] == $offer['id']) {
+                if ($filtered_offer == $offer) {
                     if (!in_array($filtered_offer, $result)) {
                         $result[] = $filtered_offer;
                     }

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Modify company{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% for offer in offers %}
+            <div class="card mb-4" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ offer.company.name }}</h5>
+                    <h5 class="card-title">{{ offer.description }}</h5>
+                    <div>
+                        {% for skill in offer.skills %}
+                            <h6 class="card-subtitle mb-2 text-muted">{{ skill.skills }}</h6>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
