@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Offer;
 use App\Form\Type\OfferType;
+use App\Repository\CandidateRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,8 +69,8 @@ class OfferController extends AbstractController
         ]);
     }
 
-    #[Route('/offer/{id}', name: 'offer_candidates')]
-    public function offerCandidates(int $id, OfferRepository $offerRepository): Response
+    #[Route('/offer/{id}/{companyId}', name: 'offer_candidates')]
+    public function offerCandidates(int $id,int $companyId, OfferRepository $offerRepository): Response
     {
         $offer = $offerRepository->find($id);
 
@@ -78,22 +79,25 @@ class OfferController extends AbstractController
         return $this->render('offer/candidates.html.twig', [
             'candidacies' => $offerCandidacies,
             'controller_name' => 'OfferController',
+            'companyId' => $companyId
         ]);
 
     }
 
-    #[Route('/offer/{id}/candidate/{idUser}', name: 'validate_candidate')]
-    public function validateCandidate(int $id, int $idUser, OfferRepository $offerRepository): Response
+    #[Route('/offer/{id}/candidate/{idUser}/{companyId}', name: 'validate_candidate')]
+    public function validateCandidate(int $id, int $idUser, int $companyId, OfferRepository $offerRepository, CandidateRepository $candidateRepository): Response
     {
         $editOffer = $offerRepository->find($id);
         $editOffer = $editOffer->setStatus('filled');
         $offerRepository->save($editOffer, true);
 
-        return $this->redirectToRoute('home');
+        $editCandidate = $candidateRepository->find($idUser);
+        $editCandidate = $editCandidate->setStatus('close');
+        $candidateRepository->save($editCandidate, true);
 
+
+        return $this->redirectToRoute('app_mailer', array('id' => $id, 'idUser' => $idUser, 'companyId' => $companyId));
     }
-
-
 }
 
 

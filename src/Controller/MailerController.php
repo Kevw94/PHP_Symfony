@@ -2,28 +2,51 @@
 
 namespace App\Controller;
 
+use App\Repository\CandidateRepository;
+use App\Repository\CompanyRepository;
+use App\Repository\OfferRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
 class MailerController extends AbstractController
 {
-    #[Route('/mailer', name: 'app_mailer')]
-    public function sendEmail(MailerInterface $mailer)
+    #[Route('/mailer/{id}/{idUser}/{companyId}', name: 'app_mailer')]
+    public function sendEmail(MailerInterface $mailer, int $id, int $idUser, int $companyId, CompanyRepository $compRepo, CandidateRepository $candidateRepo, OfferRepository $offerRepo): Response
     {
-        $email = (new Email())
-            // TODO Put arg to email to sender
-            ->from('hello@example.com')
-            ->to('you@example.com')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Vous avez été choisis!')
-            ->text('Le job pour lequel vous avez postulé est à vous!');
-//            ->html('<p>See Twig integration for better HTML integration!</p>');
+        $company = $compRepo->find($companyId);
+        $companyName = $company->getName();
+        $companyEmail = $company->getEmail();
+
+        $candidate = $candidateRepo->find($idUser);
+        $candidateName = $candidate->getName();
+        $candidateLastName = $candidate->getLastName();
+        $candidateEmail = $candidate->getEmail();
+
+        $offer = $offerRepo->find($id);
+        $offerDescription = $offer->getDescription();
+
+
+        $email = (new TemplatedEmail())
+            ->from(new Address($companyEmail, $companyName))
+
+            ->to($candidateEmail)
+            ->htmlTemplate('email/accepted.html.twig')
+            ->subject('Nous vous avons choisi !')
+
+            // pass variables (name => value) to the template
+            ->context([
+                'candidateName' => $candidateName,
+                'candidateLastName' => $candidateLastName,
+                'offerDescription' => $offerDescription,
+                'companyName' => $companyName
+            ]);
 
         try {
             $mailer->send($email);
