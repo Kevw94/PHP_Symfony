@@ -25,7 +25,7 @@ class Offer
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'idOffer', targetEntity: Candidacy::class)]
+    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: Candidacy::class)]
     private Collection $candidacies;
 
     #[ORM\ManyToMany(targetEntity: Skill::class, inversedBy: 'offers')]

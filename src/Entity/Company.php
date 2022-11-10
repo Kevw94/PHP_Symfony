@@ -21,7 +21,7 @@ class Company
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\OneToMany(mappedBy: 'companyId', targetEntity: Offer::class)]
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Offer::class)]
     private Collection $offers;
 
     public function __construct()

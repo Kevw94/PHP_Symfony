@@ -6,11 +6,17 @@
 {% block title %} Offre de l'entreprise {% endblock %}
 
 {% block body %}
-    <div>
+    <div class="row">
         {% for offer in offers %}
-            <div class="card">
-                {{ offer.description }}
+            <div class="card mb-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ offer.description }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ offer.status }}</h6>
+                    <a class="btn btn-outline-dark btn-sm"
+                       href="{{ path('offer_candidates', {'id' : offer.id}) }}">Liste des candidats</a>
+                </div>
             </div>
+            <br>
         {% endfor %}
     </div>
 

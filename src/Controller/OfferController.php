@@ -19,7 +19,7 @@ class OfferController extends AbstractController
     #[Route('/offer', name: 'app_offer', methods: ['GET'])]
     public function index(OfferRepository $offerRepository): Response
     {
-        $offers = $offerRepository->findAll();
+        $offers = $offerRepository->findOfferByStatus('online');
 
         return $this->render('offer/index.html.twig', [
             'offers' => $offers,
@@ -49,7 +49,6 @@ class OfferController extends AbstractController
     }
 
 
-
     #[Route('/offer/edit/{id}', name: 'offer_edit')]
     public function editOffer(OfferRepository $offerRepository, Request $request, int $id): Response
     {
@@ -68,6 +67,33 @@ class OfferController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/offer/{id}', name: 'offer_candidates')]
+    public function offerCandidates(int $id, OfferRepository $offerRepository): Response
+    {
+        $offer = $offerRepository->find($id);
+
+        $offerCandidacies = $offer->getCandidacies();
+
+        return $this->render('offer/candidates.html.twig', [
+            'candidacies' => $offerCandidacies,
+            'controller_name' => 'OfferController',
+        ]);
+
+    }
+
+    #[Route('/offer/{id}/candidate/{idUser}', name: 'validate_candidate')]
+    public function validateCandidate(int $id, int $idUser, OfferRepository $offerRepository): Response
+    {
+        $editOffer = $offerRepository->find($id);
+        $editOffer = $editOffer->setStatus('filled');
+        $offerRepository->save($editOffer, true);
+
+        return $this->redirectToRoute('home');
+
+    }
+
+
 }
 
 
