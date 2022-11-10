@@ -21,14 +21,15 @@
                 <h6 class="card-header">{{ offer.company.name }}</h6>
                 <div class="card-body">
                     <h5 class="card-title">{{ offer.description }}</h5>
-                    <div>Compétences requises :
-                        {% for skill in offer.skills %}
-                            <h6 class="card-text mb-2">{{ skill.skills }}</h6>
-                        {% endfor %}
+                    <div>Compétences requises : <br>
+                            {% for skill in offer.skills %}
+                                <h6 class="badge text-bg-light">{{ skill.skills }}</h6>
+                            {% endfor %}
+                        </ul>
                     </div>
                     <div class="text-center mt-2">
-                <a class="btn btn-outline-dark btn-sm "
-                   href="{{ path('offer_edit',  {'id': offer.id}) }}">Modifier mon offre</a>
+                        <a class="btn btn-outline-dark btn-sm "
+                           href="{{ path('offer_edit',  {'id': offer.id}) }}">Modifier mon offre</a>
                     </div>
                 </div>
                 <div class="card-footer text-muted text-center">
