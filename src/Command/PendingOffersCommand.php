@@ -15,7 +15,7 @@ use Symfony\Component\Console\Input\InputInterface;
     name:'app:pending_offers',
     description:"returns a list of offers which doesn't have a registered candidate (pending offers)",
     hidden: false,
-    aliases: ['app:p_off'],
+    aliases: ['app:p_off','a:po'],
 )]
 class PendingOffersCommand extends Command
 {
@@ -32,40 +32,31 @@ class PendingOffersCommand extends Command
     {
         $this
             // the command help shown when running the command with the "--help" option
-            ->setHelp('This command returns a list of all pending offers in db')
+            ->setHelp('This command returns a list 
+            of all pending offers in db with their 
+            respective ids and description')
         ;
     }
     protected function execute(InputInterface $input, OutputInterface $output): int
 {
-        // outputs multiple lines to the console (adding "\n" at the end of each line)
-
-        //fetch toutes les offres qui n'ont pas de candidat retenu 
-        //(toutes les offres à pourvoir) ou qui ont un status empty
         $pendingOffers = $this->offerManager->findPendingOffers();
-        // foreach ($pendingOffers as $offers){
-        //     $finalString = $finalString.$offers.id;
-        // }
-        // $output->writeln([$finalString]);
         $output->writeln([
+            ' ',
             ' Pending Offers ',
             '=================',
+            ' ',
         ]);
-        foreach ($pendingOffers as $offers){
-            // $desc = $offers->getDescription;
-            $desc = $this->offerManager->getOfferDescription($offers);
-                $output->writeln([
-                    $desc
-                    //write la desc de chaque élément
-                ]);
-            //il trouve bien 2 offres
-            //comment afficher la desc pour chaque offres
-            // $output->writeln([
-            //     $pendingOffers[0]
-            // ]);
+        foreach ($pendingOffers as $offer){
+            $desc = $offer->getDescription();
+            $id = $offer->getId();
+            $output->writeln([
+                " ",
+                $output->write([
+                    $id,
+                    " : ",
+                    $desc, 
+                ])
+            ]);
         }
-        
-        
-
-
         return Command::SUCCESS;
 }}

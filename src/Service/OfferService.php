@@ -50,10 +50,4 @@ class OfferService
 		$pendingOffers = $this->offerRepository->findOfferByStatus('Pending');
 		return $pendingOffers;
 	}
-
-	public function getOfferDescription(Offer $offer)
-	{
-		$desc = strval($offer.description);
-		return $desc;
-	}
 }
