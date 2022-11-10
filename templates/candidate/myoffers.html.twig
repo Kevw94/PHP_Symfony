@@ -3,7 +3,23 @@
 {% block title %}Offers !{% endblock %}
 
 {% block body %}
-    {% for candidacy in candidacies %}
-        <div>{{ candidacy.offer.description }}</div>
-    {% endfor %}
+    <div class="card-header text-center mb-5">
+        <h3 class="m-3">
+        Voici vos offres auquelles vous avez postulé !
+        </h3>
+    </div>
+    <div class="container">
+
+        {% for candidacy in candidacies %}
+            <div class="card mb-4" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ candidacy.offer.company.name }}</h5>
+                    <h5 class="card-title">{{ candidacy.offer.description }}</h5>
+                    {% for skill in candidacy.offer.skills %}
+                        <h6 class="card-subtitle mb-2 text-muted">{{ skill.skills }}</h6>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

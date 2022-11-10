@@ -55,7 +55,7 @@ class CandidateController extends AbstractController
             return new Response('Error no user found for id: ' . $id);
         }
         $candidacies = $candidate->getCandidacies();
-        //dd($offers);
+
         return $this->render('candidate/myoffers.html.twig', [
             'controller_name' => 'CandidateController',
             'candidacies' => $candidacies
