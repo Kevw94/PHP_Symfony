@@ -29,6 +29,11 @@
                     {% else %}
                         <h6 class="card-subtitle mb-2 text-muted">Vous ne pouvez pas Postuler à cette offre.</h6>
                     {% endif %}
+                    <div>skills
+                        {% for skill in offer.skills %}
+                            <h6 class="card-subtitle mb-2 text-muted">{{ skill.skills }}</h6>
+                        {% endfor %}
+                    </div>
                     <h5 class="card-title">{{ offer.description }}</h5>
                 </div>
                 <a class="btn btn-outline-dark btn-sm "
