@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Candidate;
+use App\Repository\CandidacyRepository;
 use App\Repository\CandidateRepository;
 use App\Repository\OfferRepository;
 use App\Repository\SkillRepository;
@@ -15,17 +16,19 @@ class MatchingController extends AbstractController
 {
 
     #[Route('/matching/{id}')]
-    public function matching(string $id, CandidateRepository $candidateRepository, MatchingService $matchingService)
+    public function matching(string $id, CandidateRepository $candidateRepository, MatchingService $matchingService, CandidacyRepository $candidacyRepository)
     {
         $candidate = $candidateRepository->find($id);
         $skills = $candidate->getSkills();
         //dd($skills);
 
         $result = $matchingService->matchOffers($candidateRepository->find($id));
+        $candidacies = $candidacyRepository->findAll();
 
         return $this->render('matching/matching.html.twig',[
             'offers' => $result,
                 'candidateId' => $id,
+                'candidacies' => $candidacies,
             ]
         );
     }
